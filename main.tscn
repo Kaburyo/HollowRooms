@@ -1,0 +1,69 @@
+[gd_scene load_steps=10 format=3 uid="uid://b8j1y0p6lu2pa"]
+
+[ext_resource type="PackedScene" uid="uid://cmsjla7q7oexe" path="res://rooms/level1/scenes/room_01.tscn" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://dtu2vwc0args7" path="res://main.gd" id="1_lquwl"]
+[ext_resource type="PackedScene" uid="uid://djeebtydxiplt" path="res://items/items_test/HeartContainerPickup.tscn" id="3_kek77"]
+[ext_resource type="AudioStream" uid="uid://cpec54tpxykmb" path="res://audio/music/track_test_instru01.ogg" id="5_lquwl"]
+[ext_resource type="PackedScene" uid="uid://b0yuoddmuvcu5" path="res://items/money/DisCoin_Silver.tscn" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://c6r2q1h47yray" path="res://actors/enemies/EnemyBlob/EnemyBlob.tscn" id="8_5vw27"]
+[ext_resource type="PackedScene" uid="uid://c6q022hlnu5g7" path="res://ui/HeartsHUD.tscn" id="8_kek77"]
+[ext_resource type="PackedScene" uid="uid://csyjxcd0qqj16" path="res://actors/player/Grim/Grim.tscn" id="9_4c57u"]
+[ext_resource type="PackedScene" uid="uid://c3anmjtdm21q8" path="res://actors/enemies/EnemySkull/EnemySkull.tscn" id="9_kek77"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_lquwl")
+debug_enemy_respawn = false
+debug_respawn_hp_mult = 0.65
+debug_respawn_scale_mult = 0.86
+
+[node name="HeartsHUD" parent="." instance=ExtResource("8_kek77")]
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 0)
+max_hearts = 5
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(0, -15.985)
+zoom = Vector2(0.39, 0.36)
+limit_smoothed = true
+
+[node name="ScreenFX" type="CanvasLayer" parent="."]
+
+[node name="Fade" type="ColorRect" parent="ScreenFX"]
+visible = false
+offset_left = -1638.0
+offset_top = -1001.0
+offset_right = 1637.0
+offset_bottom = 997.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Room_01" parent="." instance=ExtResource("1_0xm2m")]
+scale = Vector2(2.5, 2.5)
+metadata/_edit_lock_ = true
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_lquwl")
+volume_db = -15.0
+autoplay = true
+
+[node name="DisCoin_Silver" parent="." instance=ExtResource("6_7mycd")]
+position = Vector2(0, 150)
+respawn_time = 1.0
+
+[node name="Grim" parent="." instance=ExtResource("9_4c57u")]
+scale = Vector2(12, 12)
+
+[node name="EnemySkull" parent="." instance=ExtResource("9_kek77")]
+modulate = Color(0.603316, 0.329105, 0.589115, 1)
+position = Vector2(-920.45, -2.4)
+scale = Vector2(12, 12)
+seek_player = false
+
+[node name="EnemyBlob" parent="." instance=ExtResource("8_5vw27")]
+position = Vector2(350, 350)
+scale = Vector2(0.8, 0.8)
+seek_player = false
+
+[node name="HeartContainerPickup" parent="." instance=ExtResource("3_kek77")]
+position = Vector2(700, 0)
+scale = Vector2(10, 10)

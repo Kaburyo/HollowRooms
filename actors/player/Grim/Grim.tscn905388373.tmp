@@ -1,0 +1,164 @@
+[gd_scene load_steps=19 format=3 uid="uid://csyjxcd0qqj16"]
+
+[ext_resource type="Texture2D" uid="uid://bfpfdqa2bit07" path="res://actors/player/Grim/Body_move.png" id="1_den68"]
+[ext_resource type="Script" uid="uid://bbys0mulmyt51" path="res://actors/player/Grim/grim.gd" id="1_xfolk"]
+[ext_resource type="Texture2D" uid="uid://bfftghwsaka1w" path="res://actors/player/Grim/Head_move.png" id="2_xfolk"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_swysw"]
+radius = 8.0
+height = 30.64
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swysw"]
+atlas = ExtResource("1_den68")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qmqg4"]
+atlas = ExtResource("1_den68")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tfrrk"]
+atlas = ExtResource("1_den68")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l74uv"]
+atlas = ExtResource("1_den68")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6gqji"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_swysw")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qmqg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tfrrk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l74uv")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_den68"]
+atlas = ExtResource("2_xfolk")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7aooh"]
+atlas = ExtResource("2_xfolk")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vf6ll"]
+atlas = ExtResource("2_xfolk")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k81c1"]
+atlas = ExtResource("2_xfolk")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p1e2s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_den68")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7aooh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vf6ll")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k81c1")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xfolk"]
+radius = 8.405
+height = 16.81
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_swysw"]
+size = Vector2(13.44, 19.145)
+
+[sub_resource type="Gradient" id="Gradient_py32l"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.806667, 0.866667)
+colors = PackedColorArray(0, 0, 0, 1, 0.237539, 0.237539, 0.237539, 0.227451, 0.00566115, 0.00566115, 0.00566115, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xfolk"]
+gradient = SubResource("Gradient_py32l")
+width = 128
+height = 48
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="Grim" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_xfolk")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+visible = false
+z_index = 2
+position = Vector2(0.335, -7.32)
+shape = SubResource("CapsuleShape2D_swysw")
+
+[node name="SpriteRoot" type="Sprite2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteRoot"]
+
+[node name="Muzzle" type="Node2D" parent="SpriteRoot"]
+position = Vector2(0.62, -14.65)
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Body" type="AnimatedSprite2D" parent="Visuals"]
+sprite_frames = SubResource("SpriteFrames_6gqji")
+animation = &"walk"
+
+[node name="HeadSocket" type="Node2D" parent="Visuals"]
+position = Vector2(-0.745, -19.355)
+
+[node name="Head" type="AnimatedSprite2D" parent="Visuals/HeadSocket"]
+z_index = 1
+sprite_frames = SubResource("SpriteFrames_p1e2s")
+animation = &"walk"
+
+[node name="Hurtbox" type="Area2D" parent="."]
+visible = false
+collision_layer = 8
+collision_mask = 16
+
+[node name="Head" type="CollisionShape2D" parent="Hurtbox"]
+z_index = 2
+position = Vector2(0.015, -16.66)
+shape = SubResource("CapsuleShape2D_xfolk")
+
+[node name="Body" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0.935, -1)
+shape = SubResource("RectangleShape2D_swysw")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.619608)
+z_index = -1
+position = Vector2(1.155, 7.065)
+scale = Vector2(0.329, 0.142)
+texture = SubResource("GradientTexture2D_xfolk")
+offset = Vector2(0, 34.29)

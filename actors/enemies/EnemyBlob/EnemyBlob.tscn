@@ -1,0 +1,105 @@
+[gd_scene load_steps=11 format=3 uid="uid://c6r2q1h47yray"]
+
+[ext_resource type="Texture2D" uid="uid://ces6i3maeblis" path="res://actors/enemies/EnemyBlob/EnemyBlob_Sheet.png" id="1_mgih8"]
+[ext_resource type="Script" uid="uid://dlvnee5gpquu3" path="res://actors/enemies/EnemyBlob/EnemyBlob.gd" id="2_1pd7b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1pd7b"]
+atlas = ExtResource("1_mgih8")
+region = Rect2(764, 333, 382, 354)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fd157"]
+atlas = ExtResource("1_mgih8")
+region = Rect2(344, 0, 344, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dhn7"]
+atlas = ExtResource("1_mgih8")
+region = Rect2(0, 346, 288, 346)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mh1os"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1pd7b")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fd157")
+}],
+"loop": false,
+"name": &"hop",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dhn7")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 0.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_py32l"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.806667, 0.866667)
+colors = PackedColorArray(0, 0, 0, 1, 0.0768359, 0.0768358, 0.0768358, 0.627451, 0.00566115, 0.00566115, 0.00566115, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1pd7b"]
+gradient = SubResource("Gradient_py32l")
+width = 1293
+height = 363
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mgih8"]
+radius = 116.0
+height = 282.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1pd7b"]
+radius = 119.0
+height = 276.0
+
+[node name="EnemyBlob" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 4
+script = ExtResource("2_1pd7b")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2.5, -8.375)
+scale = Vector2(0.988, 1.048)
+sprite_frames = SubResource("SpriteFrames_mh1os")
+animation = &"idle"
+
+[node name="Shadow" type="Sprite2D" parent="AnimatedSprite2D"]
+self_modulate = Color(1, 1, 1, 0.619608)
+z_index = -1
+position = Vector2(-14.7166, 136.312)
+scale = Vector2(0.274759, 0.135496)
+texture = SubResource("GradientTexture2D_1pd7b")
+offset = Vector2(-1.695, 25.15)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-20, 9)
+shape = SubResource("CapsuleShape2D_mgih8")
+
+[node name="Hitbox" type="Area2D" parent="." groups=["enemy_hitbox"]]
+visible = false
+collision_layer = 16
+collision_mask = 40
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-20, 8)
+shape = SubResource("CapsuleShape2D_1pd7b")
+
+[node name="Hurtbox" type="Area2D" parent="." groups=["enemy_hitbox"]]
+visible = false
+collision_layer = 24
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-20, 8)
+shape = SubResource("CapsuleShape2D_1pd7b")

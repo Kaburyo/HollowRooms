@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://c6q022hlnu5g7"]
+
+[ext_resource type="Script" uid="uid://c2fxfyhc4e86k" path="res://ui/hearts_hud.gd" id="1_l32tk"]
+[ext_resource type="Texture2D" uid="uid://rj12i20ytsp4" path="res://ui/hearts/heart_full.tres" id="2_8knrj"]
+[ext_resource type="Texture2D" uid="uid://bryjwkkeiaxat" path="res://ui/hearts/heart_half.tres" id="3_bqjhg"]
+[ext_resource type="Texture2D" uid="uid://dlauari3niin7" path="res://ui/hearts/heart_empty.tres" id="4_6rg8j"]
+
+[node name="HeartsHUD" type="CanvasLayer" groups=["hud"]]
+layer = 100
+script = ExtResource("1_l32tk")
+heart_full = ExtResource("2_8knrj")
+heart_half = ExtResource("3_bqjhg")
+heart_empty = ExtResource("4_6rg8j")
+
+[node name="RootMargin" type="MarginContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+
+[node name="HeartsGrid" type="GridContainer" parent="RootMargin"]
+layout_mode = 2

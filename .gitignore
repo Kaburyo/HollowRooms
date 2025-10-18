@@ -1,0 +1,52 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# --- Godot ---
+!project.godot
+!.gd
+!.gdshader
+!.tscn
+!.tres
+!.res
+!.cfg
+!*.cs
+
+.import/
+export.cfg
+export_presets.cfg
+.icon.png
+
+# --- Assets lourds (à ignorer) ---
+*.png
+*.jpg
+*.jpeg
+*.bmp
+*.tga
+*.webp
+*.wav
+*.ogg
+*.mp3
+*.flac
+*.mp4
+*.webm
+*.avi
+*.mov
+*.ttf
+*.otf
+*.fnt
+*.obj
+*.fbx
+*.dae
+*.gltf
+*.glb
+*.blend
+
+# --- Autres ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+bin/
+build/
+dist/

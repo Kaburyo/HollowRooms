@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://cr3po5okoiibp"]
+
+[ext_resource type="Script" uid="uid://d10s7c0dcyxn6" path="res://actors/player/player.gd" id="1_dthho"]
+[ext_resource type="Texture2D" uid="uid://dlcbdcvvjh3ln" path="res://actors/player/2D.png" id="1_ehwws"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dthho"]
+radius = 32.1628
+height = 153.049
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jg3c0"]
+radius = 48.4991
+height = 147.836
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+z_index = 100
+collision_layer = 2
+script = ExtResource("1_dthho")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+visible = false
+z_index = 2
+position = Vector2(0, -74)
+scale = Vector2(0.994937, 1.01928)
+shape = SubResource("CapsuleShape2D_dthho")
+
+[node name="SpriteRoot" type="Sprite2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteRoot"]
+scale = Vector2(0.3, 0.300854)
+texture = ExtResource("1_ehwws")
+offset = Vector2(0, -318)
+
+[node name="Muzzle" type="Node2D" parent="SpriteRoot"]
+position = Vector2(0, -111)
+
+[node name="Hurtbox" type="Area2D" parent="." groups=["player"]]
+visible = false
+visibility_layer = 16
+collision_layer = 8
+collision_mask = 16
+
+[node name="face" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(2, -120)
+rotation = 1.52367
+scale = Vector2(1.00318, 1)
+shape = SubResource("CapsuleShape2D_jg3c0")
+
+[node name="body" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -52)
+scale = Vector2(1.00318, 1)
+shape = SubResource("CapsuleShape2D_jg3c0")

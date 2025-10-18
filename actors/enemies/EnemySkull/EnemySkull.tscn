@@ -1,0 +1,235 @@
+[gd_scene load_steps=20 format=3 uid="uid://c3anmjtdm21q8"]
+
+[ext_resource type="Texture2D" uid="uid://ct4rfutk2ljn0" path="res://actors/enemies/EnemySkull/EnemySkull.png" id="1_py32l"]
+[ext_resource type="Script" uid="uid://laqjqj00yiv8" path="res://actors/enemies/EnemySkull/enemy_skull.gd" id="2_tj2tl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_py32l"]
+atlas = ExtResource("1_py32l")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tj2tl"]
+atlas = ExtResource("1_py32l")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7sa80"]
+atlas = ExtResource("1_py32l")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4oxv"]
+atlas = ExtResource("1_py32l")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5df56"]
+atlas = ExtResource("1_py32l")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jietu"]
+atlas = ExtResource("1_py32l")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yvxki"]
+atlas = ExtResource("1_py32l")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u70qc"]
+atlas = ExtResource("1_py32l")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ngl4u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_py32l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tj2tl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7sa80")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4oxv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5df56")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jietu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yvxki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u70qc")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ramn0"]
+resource_local_to_scene = true
+radius = 7.0
+
+[sub_resource type="Animation" id="Animation_7sa80"]
+length = 0.666675
+loop_mode = 1
+step = 0.6667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodyShape:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1.44, -1.381)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hurtbox/hurtbox:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2.81, -7.99)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hurtbox/hurtbox:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.251327]
+}
+
+[sub_resource type="Animation" id="Animation_py32l"]
+resource_name = "idle"
+step = 0.42
+
+[sub_resource type="Animation" id="Animation_tj2tl"]
+resource_name = "move_sync"
+length = 0.666675
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.083, 0.167, 0.25, 0.333333, 0.416667, 0.5, 0.583333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BodyShape:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0394849, 0.0419633, 0.121678, 0.12589, 0.207095, 0.211864, 0.290093, 0.295278, 0.373898, 0.37767, 0.456897, 0.460573, 0.541508, 0.545011, 0.666675),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-0.5, -0.851), Vector2(-0.408, -1.27), Vector2(0.645, -1.296), Vector2(0.665, -1.239), Vector2(1.666, -1.236), Vector2(1.502, -1.375), Vector2(1.492, -0.245), Vector2(1.433, -0.317), Vector2(1.482, 0.574), Vector2(1.532, 0.68), Vector2(0.607, 0.633), Vector2(0.511, 0.651), Vector2(-1.466, 0.652), Vector2(-1.446, 0.79), Vector2(-1.445, -1.374), Vector2(-1.44, -1.381)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hurtbox/hurtbox:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0409269, 0.0419136, 0.121409, 0.12504, 0.208166, 0.212752, 0.290277, 0.295514, 0.373978, 0.375798, 0.456843, 0.458433, 0.541518, 0.542065, 0.666675),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-2.81, -7.99), Vector2(-2.81, -7.99), Vector2(7.51, -7.99), Vector2(6.19687, -7.99), Vector2(15.192, -7.99), Vector2(12.4292, -7.99), Vector2(13.177, -0.445), Vector2(10.4466, -1.7336), Vector2(14.292, 7.794), Vector2(10.6766, 4.45723), Vector2(5.638, 4.38), Vector2(4.749, 8.003), Vector2(-12.393, 7.882), Vector2(-14.765, 7.424), Vector2(-13.548, -9.708), Vector2(-12.64, -13)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hurtbox/hurtbox:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.251327]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tj2tl"]
+_data = {
+&"RESET": SubResource("Animation_7sa80"),
+&"idle": SubResource("Animation_py32l"),
+&"move_sync": SubResource("Animation_tj2tl")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_py32l"]
+radius = 60.8851
+height = 142.0
+
+[sub_resource type="Gradient" id="Gradient_py32l"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.806667, 0.866667)
+colors = PackedColorArray(0, 0, 0, 1, 0.237539, 0.237539, 0.237539, 0.227451, 0.00566115, 0.00566115, 0.00566115, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tj2tl"]
+gradient = SubResource("Gradient_py32l")
+width = 48
+height = 48
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="EnemySkull" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 4
+script = ExtResource("2_tj2tl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ngl4u")
+animation = &"idle"
+
+[node name="BodyShape" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-1.44, -1.381)
+shape = SubResource("CircleShape2D_ramn0")
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+reset_on_save = false
+callback_mode_process = 0
+libraries = {
+&"": SubResource("AnimationLibrary_tj2tl")
+}
+playback_auto_capture = false
+
+[node name="Hurtbox" type="Area2D" parent="." groups=["enemy_hitbox"]]
+visible = false
+scale = Vector2(0.1, 0.1)
+collision_layer = 16
+collision_mask = 40
+
+[node name="hurtbox" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-2.81, -7.99)
+rotation = -0.251327
+shape = SubResource("CapsuleShape2D_py32l")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.619608)
+z_index = -1
+position = Vector2(0.095, 8.735)
+scale = Vector2(0.329167, 0.0920833)
+texture = SubResource("GradientTexture2D_tj2tl")

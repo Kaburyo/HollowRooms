@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://dures4s28vusq"]
+
+[ext_resource type="Script" uid="uid://xmvhk0qar54n" path="res://actors/enemies/dummy.gd" id="1_0o31p"]
+[ext_resource type="Texture2D" uid="uid://dtvgp8hk5tucf" path="res://actors/enemies/Dummy.png" id="2_eo5lk"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_eo5lk"]
+blend_mode = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kp2ts"]
+size = Vector2(128, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0o31p"]
+size = Vector2(95, 218)
+
+[node name="Dummy" type="Node2D"]
+script = ExtResource("1_0o31p")
+
+[node name="VisualRoot" type="Node2D" parent="."]
+z_index = 3
+scale = Vector2(0.220703, 0.301025)
+
+[node name="Body" type="Sprite2D" parent="VisualRoot"]
+texture = ExtResource("2_eo5lk")
+
+[node name="Flash" type="Sprite2D" parent="VisualRoot"]
+modulate = Color(1, 1, 1, 0)
+z_index = 15
+material = SubResource("CanvasItemMaterial_eo5lk")
+texture = ExtResource("2_eo5lk")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_kp2ts")
+
+[node name="DamageZone" type="Area2D" parent="." groups=["enemy_hitbox"]]
+collision_layer = 16
+collision_mask = 40
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageZone"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_0o31p")
+
+[node name="Solid" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Solid"]
+position = Vector2(0.5, -1)
+shape = SubResource("RectangleShape2D_0o31p")
