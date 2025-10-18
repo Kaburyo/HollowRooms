@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+#test github
+
 @export var speed: float = 350.0
 @export var accel: float = 2400.0
 @export var friction: float = 3600.0
