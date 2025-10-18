@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-#test github
 
 @export var speed: float = 350.0
 @export var accel: float = 2400.0
