@@ -1,9 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://csyjxcd0qqj16"]
+[gd_scene load_steps=19 format=3 uid="uid://csyjxcd0qqj16"]
 
 [ext_resource type="Script" uid="uid://bbys0mulmyt51" path="res://actors/player/Grim/grim.gd" id="1_xfolk"]
 [ext_resource type="Script" uid="uid://b8x6g7g55uk2h" path="res://actors/player/Grim/PlayerHealth.gd" id="2_qmqg4"]
 [ext_resource type="Texture2D" uid="uid://bs1iohgo3ytkp" path="res://actors/player/Grim/Grim_reap.png" id="2_swysw"]
-[ext_resource type="Texture2D" uid="uid://bfftghwsaka1w" path="res://actors/player/Grim/Head_move.png" id="2_xfolk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_swysw"]
 radius = 4.04
@@ -92,47 +91,6 @@ animations = [{
 "speed": 18.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_den68"]
-atlas = ExtResource("2_xfolk")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7aooh"]
-atlas = ExtResource("2_xfolk")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l74uv"]
-atlas = ExtResource("2_xfolk")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k81c1"]
-atlas = ExtResource("2_xfolk")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_p1e2s"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_den68")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7aooh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l74uv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_k81c1")
-}],
-"loop": true,
-"name": &"walk",
-"speed": 18.0
-}]
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xfolk"]
 radius = 7.1
 height = 18.15
@@ -170,16 +128,7 @@ position = Vector2(0.49, 0.85)
 [node name="Body" type="AnimatedSprite2D" parent="Visuals"]
 sprite_frames = SubResource("SpriteFrames_6gqji")
 animation = &"walk"
-
-[node name="HeadSocket" type="Node2D" parent="Visuals"]
-visible = false
-position = Vector2(-1.09, -20.74)
-
-[node name="Head" type="AnimatedSprite2D" parent="Visuals/HeadSocket"]
-z_index = 1
-sprite_frames = SubResource("SpriteFrames_p1e2s")
-animation = &"walk"
-frame_progress = 0.382789
+frame = 8
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 8

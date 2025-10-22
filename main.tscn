@@ -12,14 +12,10 @@
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_lquwl")
-debug_enemy_respawn = false
-debug_respawn_hp_mult = 0.65
-debug_respawn_scale_mult = 0.86
 
 [node name="HeartsHUD" parent="." instance=ExtResource("8_kek77")]
 scale = Vector2(2, 2)
 transform = Transform2D(2, 0, 0, 2, 0, 0)
-max_hearts = 5
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(0, -15.985)

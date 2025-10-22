@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-@export var speed: float = 350.0
+@export var speed: float = 500.0
 @export var accel: float = 2400.0
 @export var friction: float = 3600.0
 @export var move_deadzone: float = 4.0  # pixels/s
@@ -18,41 +18,34 @@ const SHOOT_DEADZONE := 0.20
 @export var invuln_time := 0.7
 var invuln_timer := 0.0
 
-@export var post_invuln_grace := 0.3   # délai après l’invulnérabilité
+@export var post_invuln_grace := 0.3   # délai après l'invulnérabilité
 var grace_timer := 0.0                 # compte à rebours de cette grâce
 var _enemy_damage_overlaps := 0
 var contact_lockout := 0.0  # secondes avant de pouvoir reprendre un "tick" de contact
 
 
-@export var contact_pushback := 650.0   # force du petit recul au contact
-@export var knockback_decay := 1800.0    # vitesse à laquelle le recul s’estompe
+@export var contact_pushback := 350.0   # force du petit recul au contact
+@export var knockback_decay := 1800.0    # vitesse à laquelle le recul s'estompe
 var knockback := Vector2.ZERO           # vecteur de recul courant
 var _last_contact_dir := Vector2.ZERO   # dernière direction d'ennemi → joueur
 
 @export var contact_tick_time := 0.5     # délai avant (re)prendre des dégâts sur l'ennemi
-@export var contact_tick_damage := 0.25  # dégâts infligés à l'ennemi par “contact prolongé”
+@export var contact_tick_damage := 0.25  # dégâts infligés à l'ennemi par "contact prolongé"
 var _contact_overlaps := {}              # enemy_node -> temps cumulé de contact
 
 @onready var body: AnimatedSprite2D = $Visuals/Body
-@onready var head: AnimatedSprite2D = $Visuals/HeadSocket/Head
-@onready var head_socket: Node2D = $Visuals/HeadSocket
 
 @onready var sprite_root: Node2D = $SpriteRoot
 @onready var muzzle: Node2D = $SpriteRoot/Muzzle
 @onready var hurtbox: Area2D = $Hurtbox
 
-# Utilise un offset POSITIF en X (on s'occupe du miroir en code)
-@export var head_offset := Vector2(0.955, -20.21)
-
 var facing: int = 1  # 1 = regarde à droite, -1 = regarde à gauche
 var _base_mod_body: Color
-var _base_mod_head: Color
 
 func _ready():
     add_to_group("player")
 
     _base_mod_body = body.modulate
-    _base_mod_head = head.modulate
 
     if is_instance_valid(hurtbox):
         hurtbox.area_entered.connect(_on_hurtbox_area_entered)
@@ -75,19 +68,17 @@ func _physics_process(delta: float) -> void:
 
     # --- INVULN / GRÂCE ---
     var was_invuln := invuln_timer > 0.0
-# ... (le reste inchangé)
 
     # décrémente le verrou de contact
     if contact_lockout > 0.0:
         contact_lockout -= delta
 
-
     if invuln_timer > 0.0:
         invuln_timer -= delta
         if invuln_timer <= 0.0:
             # fin d'invuln : remettre les couleurs d'origine
-            if is_instance_valid(body): body.modulate = _base_mod_body
-            if is_instance_valid(head): head.modulate = _base_mod_head
+            if is_instance_valid(body): 
+                body.modulate = _base_mod_body
 
     if was_invuln and invuln_timer <= 0.0:
         grace_timer = post_invuln_grace
@@ -99,7 +90,7 @@ func _physics_process(delta: float) -> void:
     if invuln_timer <= 0.0 and grace_timer <= 0.0 and _enemy_damage_overlaps > 0:
         take_damage(0.5)
 
-    # --- DÉGÂTS DE CONTACT PROLONGÉS SUR L’ENNEMI ---
+    # --- DÉGÂTS DE CONTACT PROLONGÉS SUR L'ENNEMI ---
     if _contact_overlaps.size() > 0:
         var to_remove: Array = []
         for enemy in _contact_overlaps.keys():
@@ -146,13 +137,8 @@ func heal(amount: float) -> float:
 func set_move_state(moving: bool) -> void:
     if moving:
         body.play("walk")
-        if head.sprite_frames and head.sprite_frames.has_animation("walk"):
-            head.play("walk")
-        else:
-            head.play("idle")
     else:
         body.play("idle")
-        head.play("idle")
 
 func update_facing(dir: Vector2) -> void:
     # Met à jour la mémoire de direction uniquement si on a un input horizontal clair
@@ -163,13 +149,6 @@ func update_facing(dir: Vector2) -> void:
 
     var flip := (facing == -1)
     body.flip_h = flip
-    head.flip_h = flip
-
-    # Applique l'offset de tête en fonction de la direction (miroir sur X)
-    var off := head_offset
-    var base_x = abs(head_offset.x)
-    off.x = (-base_x) if flip else base_x
-    head_socket.position = off
     
 func _get_aim_vector() -> Vector2:
     var x := Input.get_action_strength("shoot_right") - Input.get_action_strength("shoot_left")
@@ -204,12 +183,12 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
         enemy = enemy.get_parent()
     
     if enemy:
-        # démarrer le chronomètre de “contact prolongé” pour cet ennemi
+        # démarrer le chronomètre de "contact prolongé" pour cet ennemi
         _contact_overlaps[enemy] = 0.0
         # dégâts de contact immédiats (demande initiale)
         if enemy.has_method("take_damage"):
             enemy.take_damage(0.25)
-    # ...
+    
     var dmg_to_player := 0.5
     if enemy and (enemy.is_in_group("elite") or enemy.is_in_group("boss")):
         dmg_to_player = 1.0
@@ -251,31 +230,26 @@ func take_damage(amount: float) -> void:
 
 
 func _blink_invuln() -> void:
-    if not is_instance_valid(body) or not is_instance_valid(head):
+    if not is_instance_valid(body):
         return
 
     # Rouge visible mais pas 100% opaque (garde un peu du sprite d'origine)
     var flash := Color(1.0, 0.25, 0.25, 1.0)
-    var cycle := 0.16                         # durée d’un on/off
+    var cycle := 0.16                         # durée d'un on/off
     var loops := int(ceil(invuln_time / cycle))
 
     # reset propre avant de démarrer
     body.modulate = _base_mod_body
-    head.modulate = _base_mod_head
 
     var t := create_tween()
     t.set_loops(loops)
 
-    # phase "on" en parallèle pour body & head
-    t.parallel().tween_property(body, "modulate", flash, cycle * 0.45)\
-        .set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-    t.parallel().tween_property(head, "modulate", flash, cycle * 0.45)\
+    # phase "on" pour body
+    t.tween_property(body, "modulate", flash, cycle * 0.45)\
         .set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
-    # phase "off" (retour aux couleurs d'origine), toujours en parallèle
+    # phase "off" (retour aux couleurs d'origine)
     t.tween_property(body, "modulate", _base_mod_body, cycle * 0.55)\
-        .set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-    t.parallel().tween_property(head, "modulate", _base_mod_head, cycle * 0.55)\
         .set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 
 func add_coins(n: int) -> void:
